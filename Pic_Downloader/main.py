@@ -2,6 +2,7 @@ import os
 from pyicloud import PyiCloudService
 from tkinter import Tk, Label, Button, Entry, filedialog, messagebox, StringVar, IntVar, ttk, simpledialog
 import threading
+from queue import Queue
 
 
 class iCloudDownloaderApp:
@@ -124,9 +125,20 @@ def authenticate_icloud(apple_id, password, root):
     api = PyiCloudService(apple_id, password)
 
     if api.requires_2fa:
-        # Prompt for 2FA code in a dialog window instead of the console
-        code = simpledialog.askstring("Two-factor Authentication",
-                                      "Enter the 2FA code sent to your device:", parent=root)
+        # Create a queue for thread-safe communication
+        queue = Queue()
+
+        def ask_2fa_code():
+            code = simpledialog.askstring("Two-factor Authentication",
+                                          "Enter the 2FA code sent to your device:", parent=root)
+            queue.put(code)  # Put the user input into the queue
+
+        # Run the dialog in the main thread
+        root.after(0, ask_2fa_code)
+
+        # Wait for the result from the queue
+        code = queue.get()
+
         if not code:
             messagebox.showerror("2FA Error", "No 2FA code entered.")
             return None
