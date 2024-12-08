@@ -9,7 +9,7 @@ Solution
 
 This approach ensures proper synchronization and prevents conflicts between threads while interacting with Tkinter.
 
-
+-------------------------------------------------------------------------------------------
 
 Update: 30.09.2024
 bugs fixes and more user experience.
