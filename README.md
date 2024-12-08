@@ -1,6 +1,20 @@
 # IOS_Pictures_download
 download picture's from IOS to pc
 
+## Update: Fix for Tkinter threading issue
+
+### Solution
+
+To avoid this issue, ensure that all Tkinter GUI operations are executed in the main thread. You can use `self.root.after` or a `queue` for communication between threads.
+
+Here’s how you can fix the code:
+
+1. **Create the 2FA dialog in the main thread**: Always handle GUI tasks in the main thread.
+2. **Use a queue for communication between threads**: The main thread can wait for the result from the worker thread.
+
+This approach ensures proper synchronization and prevents conflicts between threads while interacting with Tkinter.
+
+
 
 Update:
 bugs fixes and more user experience.
