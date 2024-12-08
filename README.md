@@ -1,13 +1,8 @@
 # IOS_Pictures_download
 download picture's from IOS to pc
 
-## Update: Fix for Tkinter threading issue
-
-### Solution
-
-To avoid this issue, ensure that all Tkinter GUI operations are executed in the main thread. You can use `self.root.after` or a `queue` for communication between threads.
-
-Here’s how you can fix the code:
+Update 08.12.2024: Fix for Tkinter threading issue 08.12.2024
+Solution
 
 1. **Create the 2FA dialog in the main thread**: Always handle GUI tasks in the main thread.
 2. **Use a queue for communication between threads**: The main thread can wait for the result from the worker thread.
@@ -16,7 +11,7 @@ This approach ensures proper synchronization and prevents conflicts between thre
 
 
 
-Update:
+Update: 30.09.2024
 bugs fixes and more user experience.
 New feature that skip pictures that you have already on you're pc:
 ![image](https://github.com/user-attachments/assets/b88929af-5679-402e-95ce-fc490bc86f93)
